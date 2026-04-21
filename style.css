@@ -1,0 +1,519 @@
+/* ── RESET & TOKENS ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #fff4e7;
+  --pink:  #f8d3e4;
+  --mint:  #ccecd2;
+  --brown: #462a19;
+}
+
+body {
+  background: #fff;
+  font-family: 'Inclusive Sans', sans-serif;
+  color: var(--brown);
+}
+
+img { display: block; }
+a   { text-decoration: none; color: inherit; }
+a[href^="tel"] { color: inherit; }
+
+/* ── HERO ── */
+
+/* The section is the positioning root for the strip-top */
+.hero-section { position: relative; }
+
+/*
+ * Mobile: strip-top sits at z-index 1 (above cream bg, below logo).
+ * hero-body pulls up by 79 px so cream starts at ~y=78.5 px behind the strip.
+ * hero-content sits at z-index 2 so the logo overlaps the strip's bottom edge.
+ */
+.strip-top {
+  display: flex;
+  position: relative;
+  z-index: 1;
+}
+.strip-top img {
+  flex: 1;
+  height: 157px;
+  object-fit: cover;
+  min-width: 0;
+}
+
+.hero-body {
+  background: var(--cream);
+  margin-top: -79px;  /* pulls cream bg up to y ≈ 78.5 px */
+  position: relative; /* z-index: auto — no new stacking context, children stack globally */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;          /* above strip-top (z-index 1) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 44px 39px 32px; /* 44 px top = 122.5 − 78.5 px, matching Figma logo position */
+}
+
+/* Logo */
+.logo-wrap {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 7px solid var(--mint);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Heading */
+.heading-wrap {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.heading-wrap h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--brown);
+}
+/* Toggle between 2-line (mobile) and 3-line (tablet+) versions */
+.h1-mobile  { display: block; }
+.h1-desktop { display: none; }
+
+/* Decorative line SVGs */
+#line-mobile  { display: block; position: absolute; left: 45%; }
+#line-desktop { display: none;  position: absolute; }
+
+/* CTA */
+.cta-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.btn-menu {
+  display: inline-block;
+  background: var(--pink);
+  padding: 16px 24px;
+  font-family: 'Inclusive Sans', sans-serif;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  border: none;
+  transition: filter 0.2s ease;
+}
+.btn-menu:hover { filter: brightness(0.90); }
+
+.grabfood-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.grabfood-row span {
+  font-size: 16px;
+  color: var(--brown);
+  white-space: nowrap;
+}
+.grabfood-logo {
+  height: 22.5px;
+  width: 120px;
+  object-fit: contain;
+}
+
+/* Desktop collage hidden on mobile */
+.desktop-collage { display: none; }
+
+/* Mobile bottom strip */
+.strip-bottom {
+  display: flex;
+  position: relative;
+  z-index: 0;
+}
+.strip-bottom img {
+  flex: 1;
+  height: 157px;
+  object-fit: cover;
+  min-width: 0;
+}
+
+/* ── LOCATION ── */
+.location-section {
+  background: var(--pink);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 16px;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.info-label img {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.info-label-loc   { width: 12px; height: 16px; }
+.info-label-clock { width: 16px; height: 16px; }
+
+.info-label span {
+  font-family: 'Anton SC', sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--brown);
+  text-transform: lowercase;
+}
+
+.info-text {
+  font-family: 'Inclusive Sans', sans-serif;
+  font-size: 16px;
+  color: var(--brown);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.map-wrap {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+.map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ── STORE IMAGE (mobile only) ── */
+.store-image-mobile {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+.store-image-mobile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── CONTACTS ── */
+.contacts-section {
+  background: var(--mint);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 16px;
+}
+
+.desktop-store-photo { display: none; }
+
+.contacts-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-info-block,
+.social-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.section-label {
+  font-family: 'Anton SC', sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--brown);
+  text-transform: lowercase;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  color: var(--brown);
+  text-align: center;
+  width: 100%;
+}
+
+.social-accounts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.social-account img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.social-account span {
+  font-size: 16px;
+  color: var(--brown);
+}
+
+/* ── ANIMATIONS ── */
+.js-loaded .animate-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity  0.65s cubic-bezier(0.4, 0, 0.2, 1) calc(var(--d, 0) * 0.12s),
+    transform 0.65s cubic-bezier(0.4, 0, 0.2, 1) calc(var(--d, 0) * 0.12s);
+}
+.js-loaded .animate-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-up,
+  .animate-up.in-view {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── TABLET & UP: hide mobile strips, switch to desktop hero ── */
+@media (min-width: 768px) {
+
+  .strip-top,
+  .strip-bottom,
+  .store-image-mobile { display: none; }
+
+  .hero-body {
+    margin-top: 0;
+    position: relative;
+    min-height: 812px;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    align-items: flex-start;
+    padding: 60px 0 60px 112px;
+    gap: 40px;
+    max-width: 489px;
+    z-index: 1;
+  }
+
+  .logo-wrap {
+    width: 140px;
+    height: 140px;
+  }
+
+  .heading-wrap { text-align: left; }
+  .heading-wrap h1 { font-size: 87px; }
+
+  /* Switch to 3-line heading on tablet/desktop */
+  .h1-mobile  { display: none; }
+  .h1-desktop { display: block; }
+
+  #line-mobile  { display: none; }
+  #line-desktop { display: block; }
+
+  /* CTA left-aligned */
+  .cta-container {
+    align-items: flex-start;
+    margin-top: 0;
+  }
+
+  .btn-menu {
+    padding: 24px 32px;
+    font-size: 21px;
+    color: var(--brown);
+  }
+
+  .grabfood-row { gap: 16px; }
+  .grabfood-row span { font-size: 21px; }
+  .grabfood-logo { height: 30px; width: 160px; }
+
+  /* Desktop food collage */
+  .desktop-collage {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 705px;
+    gap: 40px;
+    align-items: flex-start;
+    z-index: 0;
+  }
+
+  .collage-col {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    flex-shrink: 0;
+    width: 228px;
+    overflow: hidden; /* clips images during parallax translate */
+  }
+  .collage-col img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    will-change: transform;
+    transform: scale(1.06);
+    transition: transform 0.5s ease-out;
+  }
+  .collage-col:nth-child(1) { padding-top: 138px; }
+  .collage-col:nth-child(2) { padding-top: 49px;  width: 225px; }
+  .collage-col:nth-child(3) { padding-top: 209px; width: 205px; }
+
+  /* Shared label / text sizing for tablet+ */
+  .info-label span { font-size: 21px; }
+  .info-text       { text-align: left; font-size: 21px; }
+  .info-block      { align-items: flex-start; }
+  .section-label   { font-size: 21px; }
+  .contact-details { text-align: left; font-size: 21px; }
+  .social-account span { font-size: 21px; }
+}
+
+/* ── TABLET: location & contacts still stack vertically ── */
+@media (min-width: 768px) and (max-width: 1099px) {
+
+  .location-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+    padding: 64px 48px;
+  }
+
+  .location-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .info-block { flex: 1; min-width: 200px; }
+
+  .map-wrap {
+    width: 100%;
+    height: 360px;
+    flex-shrink: 0;
+  }
+
+  .contacts-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+    padding: 64px 48px;
+  }
+
+  /* Store photo full-width on tablet */
+  .desktop-store-photo {
+    display: block;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+  }
+  .desktop-store-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .contacts-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .contact-info-block,
+  .social-block {
+    align-items: flex-start;
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+/* ── DESKTOP: side-by-side layout ── */
+@media (min-width: 1100px) {
+
+  /* Location section */
+  .location-section {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+    padding: 112px;
+  }
+
+  .location-info {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 44px;
+    min-width: 0;
+  }
+
+  .map-wrap {
+    width: 700px;
+    height: 400px;
+    flex-shrink: 0;
+  }
+
+  /* Contacts section */
+  .contacts-section {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+    padding: 112px;
+  }
+
+  .desktop-store-photo {
+    display: block;
+    width: 700px;
+    height: 400px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .desktop-store-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .contacts-content {
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    gap: 44px;
+  }
+
+  .contact-info-block,
+  .social-block { align-items: flex-start; }
+}
