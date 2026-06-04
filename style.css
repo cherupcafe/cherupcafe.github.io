@@ -149,16 +149,27 @@ a[href^="tel"] { color: inherit; }
 .grabfood-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 .grabfood-row span {
   font-size: 16px;
   color: var(--brown);
   white-space: nowrap;
 }
+.delivery-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .grabfood-logo {
-  height: 22.5px;
-  width: 120px;
+  height: 17px;
+  width: auto;
+  object-fit: contain;
+}
+.foodpanda-logo {
+  height: 19px;
+  width: auto;
   object-fit: contain;
 }
 
@@ -408,9 +419,11 @@ a[href^="tel"] { color: inherit; }
     width: 68.428px;
   }
 
-  .grabfood-row { gap: 16px; }
+  .grabfood-row { gap: 14px; }
   .grabfood-row span { font-size: 21px; }
-  .grabfood-logo { height: 30px; width: 160px; }
+  .delivery-logos { gap: 20px; }
+  .grabfood-logo { height: 23px; width: auto; }
+  .foodpanda-logo { height: 26px; width: auto; }
 
   /* Desktop food collage */
   .desktop-collage {
